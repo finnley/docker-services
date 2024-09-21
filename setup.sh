@@ -26,7 +26,7 @@ EOF
 }
 
 cat > ./docker-compose.yaml <<EOF
-version: "3.0"
+version: "3"
 
 services:
 EOF
