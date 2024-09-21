@@ -1,0 +1,46 @@
+version: "3.0"
+
+services:
+  mysql57:
+    # container_name: dev-mysql57
+    # build:
+    #   context: ./services/mysql
+    #   args:
+    #     - MYSQL_VERSION=5.7
+    platform: linux/amd64
+    image: mysql:5.7
+    restart: always
+    environment:
+      - MYSQL_DATABASE=default
+      - MYSQL_USER=default
+      - MYSQL_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=hello@mysql5.7
+      - TIMEZONE=Asia/Shanghai
+    volumes:
+      - ./mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      # - ./mysql/5.7/conf:/etc/mysql/conf.d
+      # - /Users/finnley/.env-docker/mysql/5.7/data:/var/lib/mysql
+    ports:
+      - 3357:3306
+
+  redis:
+    image: bitnami/redis:latest
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - 6379:6379
+
+  nacos-standalone:
+    # platform: linux/amd64
+    image: nacos/nacos-server:v2.3.0-slim
+    ports:
+      - 8848:8848 
+    # volumes:
+    #   - ./nacos/init.d/custom.properties:/home/nacos/init.d/custom.properties
+    environment:
+      - MODE=standalone                  
+      - JVM_XMS=512m
+      - JVM_XMX=512m
+      - JVM_XMN=256m
+    restart: always
+

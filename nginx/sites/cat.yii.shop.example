@@ -1,0 +1,48 @@
+; server {
+
+;     listen 80;
+
+;     server_name     cat.yii.shop cat.yii.shop.ngrok2.xiaomiqiu.cn;
+;     root            /var/www/site/cat-yii-shop/web;
+
+;     index           index.php index.html index.htm;
+
+;     location / {
+;         # if (!-e $request_filename){
+;         #    rewrite ^/(.*)/web/(.*) /$1/web/index.php last;
+;         # }
+;         try_files                   $uri
+;                                     $uri/
+;                                     /index.php?$args;
+;     }
+
+;     location ~ \.php$ {
+;         # fastcgi_pass   yii-book-shop:9000;
+;         fastcgi_pass   cat-yii-shop:9000;
+;         fastcgi_index  index.php;
+;         fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+;         include        fastcgi_params;
+
+;         # try_files                   $uri =404;
+;         # fastcgi_read_timeout        300;
+;         # fastcgi_keep_conn           on;
+;         # index                       index.html index.php;
+;     }
+
+;     location ~ ^/(environments|vendor|console|common|console|tests|requirements\.php|composer\.lock|composer\.json|yii|init)/ {
+;         # deny all;
+;     }
+
+;     location ~ /\.ht {
+;         # deny  all;
+;     }
+
+;     location ~ ^(.*)\/\.svn\/ {
+;         # deny all;
+;     }
+    
+;     location ~ /\.(svn|git) {
+;         # deny all;
+;     }
+
+; }
