@@ -131,8 +131,8 @@ if [[ ${MONGODB_ENABLE} == 'true' ]]; then
       - MONGODB_INITDB_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD}
     volumes:
       - ${DATA_PATH_HOST}/mongodb:/data/db
-      - ${PWD}/mongo-conf:/data/configdb
-      - ${PWD}/mongo-conf:/docker-entrypoint-initdb.d
+      - ${PWD}/mongodb/mongo-conf:/data/configdb
+      - ${PWD}/mongodb/mongo-conf:/docker-entrypoint-initdb.d
 
 EOF
 fi
