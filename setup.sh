@@ -118,6 +118,24 @@ if [[ ${REDIS_ENABLE} == 'true' ]]; then
 EOF
 fi
 
+echo "MONGODB_ENABLE: ${MONGODB_ENABLE}"
+if [[ ${MONGODB_ENABLE} == 'true' ]]; then
+  cat >> ./docker-compose.yaml <<EOF
+  mongodb:
+    restart: always
+    build: ./mongodb
+    ports:
+      - "${MONGODB_PORT}:27017"
+    environment:
+      - MONGODB_INITDB_ROOT_USERNAME=${MONGODB_ROOT_USERNAME}
+      - MONGODB_INITDB_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD}
+    volumes:
+      - ${PWD}/mongodb:/data/db
+      - ${PWD}/mongo_config:/data/configdb
+      - ${PWD}/mongodb/mongo-conf:/docker-entrypoint-initdb.d
+
+EOF
+fi
 
 echo "CONSUL_ENABLE: ${CONSUL_ENABLE}"
 if [[ ${CONSUL_ENABLE} == 'true' ]]; then
@@ -236,24 +254,6 @@ if [[ ${NGINX_ENABLE} == 'true' ]]; then
     working_dir: /var/www/site
     tty: true
     $(echo_php_to_nginx)
-
-EOF
-fi
-
-echo "MONGODB_ENABLE: ${MONGODB_ENABLE}"
-if [[ ${MONGODB_ENABLE} == 'true' ]]; then
-  cat >> ./docker-compose.yaml <<EOF
-  mongo:
-    build: ./mongo
-    ports:
-      - "${MONGO_PORT}:27017"
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
-    volumes:
-      - ${PWD}/mongo:/data/db
-      - ${PWD}/mongo_config:/data/configdb
-      - ${PWD}/mongo/mongo-conf:/docker-entrypoint-initdb.d
 
 EOF
 fi
