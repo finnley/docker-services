@@ -61,7 +61,7 @@ echo "MYSQL_5_7_ENABLE: ${MYSQL_5_7_ENABLE}"
 if [[ ${MYSQL_5_7_ENABLE} == 'true' ]]; then
   cat >> ./docker-compose.yaml <<EOF
   mysql57:
-    # container_name: ${ENV}-mysql57
+    container_name: mysql57
     # build:
     #   context: ./services/mysql
     #   args:
@@ -122,6 +122,7 @@ echo "MONGODB_ENABLE: ${MONGODB_ENABLE}"
 if [[ ${MONGODB_ENABLE} == 'true' ]]; then
   cat >> ./docker-compose.yaml <<EOF
   mongodb:
+    container_name: mongodb
     restart: always
     build: ./mongodb
     ports:
@@ -170,6 +171,7 @@ echo "NACOS_ENABLE: ${NACOS_ENABLE}"
 if [[ ${NACOS_ENABLE} == 'true' ]]; then
   cat >> ./docker-compose.yaml <<EOF
   nacos-standalone:
+    container_name: nacos-standalone
     # platform: linux/amd64
     image: nacos/nacos-server:${NACOS_VERSION}
     ports:
